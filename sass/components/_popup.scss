@@ -1,0 +1,130 @@
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba($color-black, 0.8);
+  z-index: 3000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  @supports (-webkit-backdrop-filter: blur(10px))
+    or (backdrop-filter: blur(10px)) {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, 0.3);
+  }
+
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__content {
+    @include center-vertical-and-horizontal;
+    width: 75%;
+    box-shadow: 0 2rem 4rem $rgba-shadow;
+    background-color: $color-white;
+    border-radius: $border-radius-default;
+    display: table;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s 0.2s;
+    transform: translate(-50%, -50%) scale(0.5);
+
+    @include respond(tab-port) {
+      display: block;
+    }
+  }
+
+  &:target &__content {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  &__left,
+  &__right {
+    display: table-cell;
+    vertical-align: middle;
+
+    @include respond(tab-port) {
+      display: block;
+    }
+  }
+
+  &__left {
+    width: 33.333333333%;
+
+    @include respond(tab-land) {
+      width: 40%;
+    }
+
+    @include respond(tab-port) {
+      width: 100%;
+    }
+  }
+
+  &__right {
+    width: 66.6666666667%;
+    padding: 3rem 5rem;
+
+    @include respond(tab-land) {
+      width: 60%;
+      padding: 1.5rem 2.5rem;
+    }
+
+    @include respond(tab-port) {
+      width: 100%;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+
+    @include respond(tab-port) {
+      width: 50%;
+      float: left;
+      @include clearfix;
+    }
+  }
+
+  &__text {
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+
+    -moz-column-count: 2;
+    -moz-column-gap: 4rem;
+    -moz-column-rule: 1px solid $color-grey-light-2;
+
+    column-count: 2;
+    column-gap: 4rem;
+    column-rule: 1px solid $color-grey-light-2;
+
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  &__close {
+    &:link,
+    &:visited {
+      color: $color-grey-dark;
+      position: absolute;
+      top: 2.5rem;
+      right: 2.5rem;
+      font-size: 3rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
